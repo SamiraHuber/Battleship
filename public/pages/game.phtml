@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+
+    <link href="../css/game.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <h1 id="turn">Waiting for opponent!</h1>
+    <h3 id="message"></h3>
+    
+    <div class="myself" id="myself">
+        <div class="background"></div>
+    </div>
+
+    <div class="myself" id="myself_hits"></div>
+    
+    <div class="opponent" id="opponent"></div>
+
+    <div class="opponent" id="opponent_hits"></div>
+
+    
+    <script src="../js/Ship.js" ></script>
+    <script src="../js/SunkShip.js" ></script>
+    <script src="../js/game.js" ></script>
+    <script>
+        let ships = <?php echo json_encode($ships) ?>;
+        let opponentName = <?php echo json_encode($opponent) ?>;
+    </script>
+</body>
+</html>

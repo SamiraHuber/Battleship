@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highscore</title>
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap');
+    body {
+        font-family: 'Comic Neue', cursive;
+        background-color: black;
+        color: white;
+        text-align: center;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    table {
+        width: 50%;
+        text-align: center;
+        margin-left: 25%;
+        margin-bottom: 2em;
+        border-collapse: collapse;
+        border-style: hidden; 
+    }
+
+    table thead th { 
+        border-bottom: 1px solid white; 
+    }
+
+    table td {
+        border: 1px solid white;
+        border-top: none;
+        border-bottom: none;
+        height: 2em;
+    }
+
+    </style>
+</head>
+<body>
+<h1>Highscore</h1>
+
+<table class="pure-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>NAME</th>
+            <th>HITRATE</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php for ($i = 0; $i < sizeof($players); $i++): ?>
+
+        <tr>
+            <td><?=$i + 1 ?></td>
+            <td><?=$players[$i]['name'] ?></td>
+            <td><?= (int) $players[$i]['hitrate'] ?> %</td>
+        </tr>
+
+    <?php endfor; ?>
+    </tbody>
+</table>
+
+
+<a href="<?=$router->pathFor('Home', [])?>">Back To Homescreen</a>
+
+
+</body>
+</html>

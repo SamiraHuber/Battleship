@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap');
+
+
+body {
+    margin:0;
+    min-height:100vh;
+    overflow:hidden;
+    font-family: 'Comic Neue', cursive;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    margin: 2vh;
+}
+
+canvas {
+    cursor:pointer;
+}
+.ship {
+    position:absolute;
+    top:0;
+    left:0;
+    transition:transform .2s;
+    cursor:move;
+    user-select: none;
+}
+
+
+.ship_0 {
+    background-image: url("../images/ship_0.png");
+    background-size: 100% 100%;
+}
+
+.ship_0_rotated {
+    background-image: url("../images/ship_0-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_1 {
+    background-image: url("../images/ship_1.png");
+    background-size: 100% 100%;
+}
+
+.ship_1_rotated {
+    background-image: url("../images/ship_1-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_2 {
+    background-image: url("../images/ship_2.png");
+    background-size: 100% 100%;
+}
+
+.ship_2_rotated {
+    background-image: url("../images/ship_2-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_3 {
+    background-image: url("../images/ship_3.png");
+    background-size: 100% 100%;
+}
+
+.ship_3_rotated {
+    background-image: url("../images/ship_3-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_4 {
+    background-image: url("../images/ship_4.png");
+    background-size: 100% 100%;
+}
+
+.ship_4_rotated {
+    background-image: url("../images/ship_4-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_5 {
+    background-image: url("../images/ship_5.png");
+    background-size: 100% 100%;
+}
+
+.ship_5_rotated {
+    background-image: url("../images/ship_5-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_6 {
+    background-image: url("../images/ship_6.png");
+    background-size: 100% 100%;
+}
+
+.ship_6_rotated {
+    background-image: url("../images/ship_6-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_7 {
+    background-image: url("../images/ship_7.png");
+    background-size: 100% 100%;
+}
+
+.ship_7_rotated {
+    background-image: url("../images/ship_7-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_8 {
+    background-image: url("../images/ship_8.png");
+    background-size: 100% 100%;
+}
+
+.ship_8_rotated {
+    background-image: url("../images/ship_8-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_9 {
+    background-image: url("../images/ship_9.png");
+    background-size: 100% 100%;
+}
+
+.ship_9_rotated {
+    background-image: url("../images/ship_9-rotated.png");
+    background-size: 100% 100%;
+}
+
+h3 {
+    position:absolute;
+    top:0;
+    left:10px;
+}
+
+.grid {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    background: rgb(34,85,131);
+    background: radial-gradient(circle, rgba(7, 18, 28, 0.5) 0%, rgba(10, 24, 30, .5) 100%);
+}
+
+button {
+    background-color: transparent;
+    font-weight: bolder;
+    color: white;
+    font-family: 'Comic Neue', cursive;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    text-decoration: underline;
+}
+
+.gridField {
+    background-color: #00a2ff;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+
+.blocker {
+    background-color: rgb(0, 0, 0, .5); 
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    left: 0; 
+    top: 0; 
+    vertical-align: middle; 
+    padding-top: calc(50vh - 2em);
+    display: none;
+}
+
+.blocker span {
+    font-size: 2em;
+}
+
+#error_message {
+    display: none;
+}
+
+#title {
+    display: block;
+}

@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Your Ships</title>
+
+    <link href="../css/setShips.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <!--based on https://codepen.io/lemmin/pen/LLdqzV-->
+    <h1 id="title">You play against <?=$opponent?></h1>
+    <h1 id="error_message">Something went wrong - try again!</h1>
+
+    <div id="grid" class="grid">
+    </div>
+
+    <div class="blocker" id="blocker">
+        <span>Wait for opponent...</span>
+    </div>
+
+    <button onclick="saveShips()">&rArr; SUBMIT YOUR SHIPS</button>
+    
+    <script src="../js/Ship.js" ></script>
+    <script src="../js/setShips.js" ></script>
+</body>
+</html>

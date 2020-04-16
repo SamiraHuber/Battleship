@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap');
+
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Comic Neue', cursive;
+    text-align: center;
+}
+
+.myself {
+    position: absolute;
+    width: 40vw;
+    height: 40vw;
+    left: 5vw;
+    top: calc((100% - 40vw)/2);
+}
+
+.myself .background {
+    background: rgb(46,106,162);
+    background: radial-gradient(circle, rgba(7, 18, 28, 0.5) 0%, rgba(10, 24, 30, .5) 100%);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.opponent {
+    position: absolute;
+    width: 40vw;
+    height: 40vw;
+    right: 5vw;
+    top: calc((100% - 40vw)/2);
+    background: rgb(46,106,162);
+    background: radial-gradient(circle, rgba(7, 18, 28, 0.5) 0%, rgba(10, 24, 30, .5) 100%);
+}
+
+#opponent_hits {
+    pointer-events: none;
+}
+
+.shipElement {
+    background-image: url("../images/ship.png");
+    background-size: auto 100%;
+    pointer-events: fill;
+    position: absolute;
+}
+
+.water {
+    pointer-events: fill;
+    position: absolute;
+    background-color: #0e3268;
+}
+
+.ship {
+    position:absolute;
+    top:0;
+    left:0;
+    transition:transform .2s;
+    user-select: none;
+    opacity: .8;
+}
+
+.sunkship {
+    position:absolute;
+    top:0;
+    left:0;
+    transition:transform .2s;
+    user-select: none;
+    opacity: 1;
+}
+
+
+.hitMyself {
+    pointer-events: fill;
+    position: absolute;
+    background-image: url("../images/cross.png");
+    background-size: auto 100%;
+    opacity: 1;
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
+}
+
+.ship_0 {
+    background-image: url("../images/ship_0.png");
+    background-size: 100% 100%;
+}
+
+.ship_0_rotated {
+    background-image: url("../images/ship_0-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_1 {
+    background-image: url("../images/ship_1.png");
+    background-size: 100% 100%;
+}
+
+.ship_1_rotated {
+    background-image: url("../images/ship_1-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_2 {
+    background-image: url("../images/ship_2.png");
+    background-size: 100% 100%;
+}
+
+.ship_2_rotated {
+    background-image: url("../images/ship_2-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_3 {
+    background-image: url("../images/ship_3.png");
+    background-size: 100% 100%;
+}
+
+.ship_3_rotated {
+    background-image: url("../images/ship_3-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_4 {
+    background-image: url("../images/ship_4.png");
+    background-size: 100% 100%;
+}
+
+.ship_4_rotated {
+    background-image: url("../images/ship_4-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_5 {
+    background-image: url("../images/ship_5.png");
+    background-size: 100% 100%;
+}
+
+.ship_5_rotated {
+    background-image: url("../images/ship_5-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_6 {
+    background-image: url("../images/ship_6.png");
+    background-size: 100% 100%;
+}
+
+.ship_6_rotated {
+    background-image: url("../images/ship_6-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_7 {
+    background-image: url("../images/ship_7.png");
+    background-size: 100% 100%;
+}
+
+.ship_7_rotated {
+    background-image: url("../images/ship_7-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_8 {
+    background-image: url("../images/ship_8.png");
+    background-size: 100% 100%;
+}
+
+.ship_8_rotated {
+    background-image: url("../images/ship_8-rotated.png");
+    background-size: 100% 100%;
+}
+
+.ship_9 {
+    background-image: url("../images/ship_9.png");
+    background-size: 100% 100%;
+}
+
+.ship_9_rotated {
+    background-image: url("../images/ship_9-rotated.png");
+    background-size: 100% 100%;
+}
