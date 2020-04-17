@@ -66,7 +66,9 @@
 
     /**
      * HOME
-     * Enter a nickname and submit to find an opponent
+     * 
+     * Shows Lobby where you can sign up with a nickname
+     * Redirects to WaitingLodge if nickname is valid
      */
     $app->get('/', function ($request, $response) {
 
@@ -96,7 +98,9 @@
 
     /**
      * WaitingLodge
-     * Wait for free player
+     * 
+     * Shows Lodge
+     * Checking whether new free player comes online
      */
     $app->get('/WaitingLodge', function ($request, $response) {
         //only access if playerID is not null
@@ -109,7 +113,9 @@
 
     /**
      * SetShips
-     * Set Ships on fields
+     * 
+     * User sets ships on grid
+     * waits for opponent to also finish setting ships
      */
     $app->get('/SetShips', function ($request, $response, $args) {
         //only access if playerID and gameID is not null
@@ -124,6 +130,8 @@
 
     /**
      * Highscore
+     * 
+     * Show a list of all players ordered by the hits devided by the total amount of turns
      */
     $app->get('/Highscore', function (Request $request, Response $response) {
         $_SESSION['playerID'] = null;
@@ -137,6 +145,9 @@
 
     /**
      * Game
+     * 
+     * Shows the grid of current player and opponent
+     * Game takes place on that path
      */
     $app->get('/Game', function (Request $request, Response $response) {
         if ($_SESSION['playerID'] == null || $_SESSION['gameID'] == null) {
@@ -152,6 +163,8 @@
 
     /**
      * API
+     * 
+     * returns the turn based match as json
      */
     $app->get('/game/{gameID}', function ($request, $response, $args) {
         $turns = $this->turn->getAllTurns($this->db, $request->getAttribute('gameID'));
@@ -164,8 +177,11 @@
             ->withStatus(201);
     });
 
+    ### region ACTIONS
+
     /**
-     * Returns whether player is assigned to a game
+     * Returns game if current player is assigned to a game
+     * Updates waiting time to make sure that only players which are online are assigned
      */
     $app->get('/getFreePlayer', function ($request, $response, $args) {
         if ($_SESSION['playerID'] == null) {
@@ -188,10 +204,8 @@
 
     })->setName('getFreePlayer');
 
-
-    ### region ACTIONS
     /**
-     * 
+     * saves the ships which are sorted on the grid and saves it to the fatabase
      */
     $app->get('/saveShips', function ($request, $response, $args) {
         if ($_SESSION['playerID'] == null || $_SESSION['gameID'] == null) {
@@ -215,7 +229,7 @@
     })->setName('saveShips');
 
     /**
-     * 
+     * checks if opponent has finished setting the ships on the grid
      */
     $app->get('/waitForOpponent', function ($request, $response, $args) {
         if ($_SESSION['playerID'] == null || $_SESSION['gameID'] == null) {
@@ -231,7 +245,11 @@
     })->setName('waitForOpponent');
 
     /**
-     * 
+     * checks if opponent has made a turn
+     * checks if game is finished
+     * checks whether a ship is fully sunk
+     * get field which is hit last
+     * calculates hit rate of opponent and current player
      */
     $app->get('/waitForNextTurn', function ($request, $response, $args) {
         if ($_SESSION['playerID'] == null || $_SESSION['gameID'] == null) {
@@ -250,23 +268,11 @@
         //is it my turn?
         $array["myturn"] = $this->game->isMyTurn($this->db, $_SESSION['gameID'], $_SESSION['playerID']);
 
-        /*if ($result['myturn'] == 0) {
-            $response = $response->withJson($array);
-            return $response
-                ->withHeader('Content-Type', 'application/json')
-                ->withStatus(201);
-        }*/
 
         //check if game is finished
         $turn =  $this->turn;
         $array['finished'] = $turn->gameFinished($this->db, $_SESSION['gameID'], $_SESSION['playerID']);
 
-        /*if ($array['finished'] == 1) {
-            $response = $response->withJson($array);
-            return $response
-                ->withHeader('Content-Type', 'application/json')
-                ->withStatus(201);
-        }*/
         $array['fullShips'] = $turn->getSankShips($this->db, $_SESSION['gameID'], $_SESSION['playerID']);
 
         $array['hitFields'] = $turn->getHitFields($this->db, $_SESSION['gameID'], $_SESSION['playerID']);
@@ -288,6 +294,10 @@
             ->withStatus(201);
     })->setName('waitForNextTurn');
 
+    /**
+     * adds move to database
+     * changes active player if move was valid
+     */
     $app->get('/makeTurn', function ($request, $response, $args) {
         if ($_SESSION['playerID'] == null || $_SESSION['gameID'] == null) {
             return $response->withRedirect($this->router->pathFor('Home'));
@@ -300,9 +310,8 @@
 
         //if field is already clicked, than don't hit it again
         if ($hit != -1) {
-            $this->game->changeActivePlayer($this->db, $_SESSION['gameID'], $_SESSION['playerID']);
+            $this->game->changeActivePlayer($this->db, $_SESSION['gameID']);
         }
-        
 
         $response->getBody()->write($hit);
         return $response

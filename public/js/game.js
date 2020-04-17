@@ -5,16 +5,15 @@ var fullShips = [];
 let gridSize = $("#opponent").width()/10;
 
 var canvas = createCanvas($("#myself").width(), $("#myself").height(), "myself");
-var ctx = canvas.getContext('2d');
+var ctx1 = canvas.getContext('2d');
 
 var canvasOpp = createCanvas($("#opponent").width(), $("#opponent").height(), "opponent");
-var ctx = canvasOpp.getContext('2d');
+var ctx2 = canvasOpp.getContext('2d');
 
-drawGrid(ctx,gridSize,canvas.width,canvas.height);
-drawGrid(ctx,gridSize,canvasOpp.width,canvasOpp.height);
+drawGrid(ctx1,gridSize,canvas.width,canvas.height);
+drawGrid(ctx2,gridSize,canvasOpp.width,canvasOpp.height);
 
 $( document ).ready(function() {
-    
     drawShips(); 
     checkNextTurn();
 });
@@ -63,20 +62,20 @@ function drawShips() {
         if (!addedShips.includes(ship['shipID'])) {
             switch(ship['shipID']) {
                 case "0":
-                    var s = new Ship(ship['x'], ship['y'], 5, ship['shipID'], "myself", ship['isHorizontal'] == 1)
+                    var s = new Ship(ship['x'], ship['y'], 5, ship['shipID'], "myself", parseInt(ship['isHorizontal']) == 1)
                     s.draw();
                     addedShips.push(ship['shipID']);
                     break;
                 case "1":
                 case "2":
-                    var s = new Ship(ship['x'], ship['y'], 4, ship['shipID'], "myself", ship['isHorizontal'] == 1)
+                    var s = new Ship(ship['x'], ship['y'], 4, ship['shipID'], "myself", parseInt(ship['isHorizontal']) == 1)
                     s.draw();
                     addedShips.push(ship['shipID']);
                     break;
                 case "3":
                 case "4":
                 case "5":
-                    var s = new Ship(ship['x'], ship['y'], 3, ship['shipID'], "myself", ship['isHorizontal'] == 1)
+                    var s = new Ship(ship['x'], ship['y'], 3, ship['shipID'], "myself", parseInt(ship['isHorizontal']) == 1)
                     s.draw();
                     addedShips.push(ship['shipID']);
                     break;
@@ -84,7 +83,7 @@ function drawShips() {
                 case "7":
                 case "8":
                 case "9":
-                    var s = new Ship(ship['x'], ship['y'], 2, ship['shipID'], "myself", ship['isHorizontal'] == 1)
+                    var s = new Ship(ship['x'], ship['y'], 2, ship['shipID'], "myself", parseInt(ship['isHorizontal']) == 1)
                     s.draw();
                     addedShips.push(ship['shipID']);
                     break;
@@ -107,7 +106,6 @@ function markFieldHit(x, y) {
 }
 
 function markFieldMiss(x, y) {
-    console.log("markFieldMiss");
     let square = document.createElement('div');
     square.classList.add("water");
     square.style.width = gridSize + 'px';
@@ -118,7 +116,6 @@ function markFieldMiss(x, y) {
 
 function showFullShips(val) {
     document.getElementById("message").innerText = '"You sunk my battleship!"';
-    console.log("new full ship");
 
     fullShips = val['fullShips'];
 
@@ -160,21 +157,15 @@ function makeTurn(x, y) {
                 _this.markFieldMiss(x, y);
             }
             else if (val == -1) {
-                console.log("error");
                 _this.myTurn = true;
                 document.getElementById("turn").innerText = "Your turn!";
                 document.getElementById("message").innerText = "Something went wrong - try again!";
             }
-        },
-        error: function(val) {
-            console.log("error: ");
-            console.log(val);
         }
     });
 }
 
 function displayHitsOnMyself(val) {
-    console.log("displayHitsOnMyself");
     myTurn = true;
     document.getElementById("turn").innerText = "Your turn!";
 
@@ -207,19 +198,12 @@ function checkNextTurn() {
                 _this.goToHighscore();
             }
             if (val['myturn'] == 1) {
-                console.log(val);
                 _this.displayHitsOnMyself(val);
-            }
-            else {
-                console.log("waiting");
-                console.log(val);
             }
             if (val['fullShips'].length != _this.fullShips.length) {
                 _this.showFullShips(val);
             }
             document.getElementById("message").innerText = "Your hit rate: " + parseInt(val['myHitRate']) + "% // " + opponentName + "s hit rate: "  + parseInt(val['opponentHitRate'])+ "%";
-        }, error: function(e) {
-            console.log(e);
         }
     });
 }

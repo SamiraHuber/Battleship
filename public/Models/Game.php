@@ -109,14 +109,14 @@
             }
         }
 
-        public function changeActivePlayer($pdo, $gameID, $playerID) {
-            $sql = "SELECT * FROM game WHERE opponent_1 = {$playerID} OR opponent_2 = {$playerID} LIMIT 1;";
+        public function changeActivePlayer($pdo, $gameID) {
+            $sql = "SELECT * FROM game WHERE id = {$gameID};";
             $userRow = $pdo->query($sql)->fetch();
 
             if ($userRow == null) {
                 return;
             }
-            if ($userRow['opponent_1'] == $playerID) {
+            if ($userRow['activePlayerID'] == $userRow['opponent_1']) {
                 $opponentID = $userRow['opponent_2'];
             }
             else {

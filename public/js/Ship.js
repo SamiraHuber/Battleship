@@ -1,7 +1,7 @@
 class Ship {
     constructor(x, y, amount, id, parent, isHorizontal = true) {
         this.id = id
-        this.isHorizontal = true;
+        this.isHorizontal = isHorizontal;
         this.amount = amount;
         this.x = x*gridSize;
         this.y = y*gridSize;

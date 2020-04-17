@@ -93,11 +93,7 @@ function saveShips() {
                 document.getElementById("blocker").style.display = "none";
                 document.getElementById("title").style.display = "none";
                 document.getElementById("error_message").style.display = "block";
-                console.log("error");
             }
-        },
-        error: function(val) {
-            console.log(val);
         }
     });
     
