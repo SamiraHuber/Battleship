@@ -13,7 +13,6 @@ $(document).ready(function() {
     drawShips();
 });
 
-
 function drawShips() {
     for (var i = 0; i < 10; i++) {
         let ship = new Ship(0, i, i < 1 ? 5 : i < 3 ? 4 : i < 6 ? 3 : 2, i, "grid");
@@ -95,9 +94,7 @@ function saveShips() {
                 document.getElementById("error_message").style.display = "block";
             }
         }
-    });
-    
-    
+    });   
 }
 
 function redirectToGame() {

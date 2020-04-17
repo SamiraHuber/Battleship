@@ -48,6 +48,28 @@ class Ship {
         
     }
 
+    isOutsideOfGrid(shipLength, shipHeight) {
+        if (this.x < 0 || shipLength >= canvas.width || this.y < 0 || shipHeight >= canvas.height) {
+            return true;
+        }
+    }
+
+    isOnOtherShip(shipLength, shipHeight) {
+        for (var i = 0; i < ships.length; i++) {
+            if (ships[i] == this) {
+                continue;
+            }
+            let othershipLength = ships[i].isHorizontal ? ships[i].x + gridSize * (ships[i].amount  - 1) : ships[i].x;
+            let othershipHeight = !ships[i].isHorizontal ? ships[i].y + gridSize * (ships[i].amount  - 1) : ships[i].y;
+            if (ships[i].x <= this.x && othershipLength >= this.x || ships[i].x <= shipLength && othershipLength >= this.x) {
+                if (ships[i].y <= this.y && othershipHeight >= this.y || ships[i].y <= shipHeight && othershipHeight >= this.y) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     dragAndDrop() {
         let _this = this;
         this.div.onmousedown = () => {
@@ -58,27 +80,12 @@ class Ship {
                 document.onmousemove = document.onmouseup = '';
                 let shipLength = this.isHorizontal ? this.x + gridSize * (this.amount  - 1) : this.x;
                 let shipHeight = !this.isHorizontal ? this.y + gridSize * (this.amount  - 1) : this.y;
-                if (this.x < 0 || shipLength >= canvas.width || this.y < 0 || shipHeight >= canvas.height) {
+                if (this.isOutsideOfGrid(shipLength, shipHeight) || this.isOnOtherShip(shipLength, shipHeight)) {
                     this.div.style.transform = 'translate(' + this.oldX + 'px,' + this.oldY + 'px)';
                     this.x = this.oldX;
                     this.y = this.oldY;
                 }
                 else {
-                    for (var i = 0; i < ships.length; i++) {
-                        if (ships[i] == this) {
-                            continue;
-                        }
-                        let othershipLength = ships[i].isHorizontal ? ships[i].x + gridSize * (ships[i].amount  - 1) : ships[i].x;
-                        let othershipHeight = !ships[i].isHorizontal ? ships[i].y + gridSize * (ships[i].amount  - 1) : ships[i].y;
-                        if (ships[i].x <= this.x && othershipLength >= this.x || ships[i].x <= shipLength && othershipLength >= this.x) {
-                            if (ships[i].y <= this.y && othershipHeight >= this.y || ships[i].y <= shipHeight && othershipHeight >= this.y) {
-                                this.div.style.transform = 'translate(' + this.oldX + 'px,' + this.oldY + 'px)';
-                                this.x = this.oldX;
-                                this.y = this.oldY;
-                                return;
-                            }
-                        }
-                    }
                     this.oldX = this.x;
                     this.oldY = this.y;
                 }
@@ -98,23 +105,9 @@ class Ship {
             let shipLength = this.isHorizontal ? this.x + gridSize * (this.amount  - 1) : this.x;
             let shipHeight = !this.isHorizontal ? this.y + gridSize * (this.amount  - 1) : this.y;
             //check if out of field
-            if (this.x < 0 || shipLength >= canvas.width || this.y < 0 || shipHeight >= canvas.height) {
+            if (this.isOutsideOfGrid(shipLength, shipHeight) || this.isOnOtherShip(shipLength, shipHeight)) {
                 this.rotate();
                 return;
-            }
-            //check if on other ship
-            for (var i = 0; i < ships.length; i++) {
-                if (ships[i] == this) {
-                    continue;
-                }
-                let othershipLength = ships[i].isHorizontal ? ships[i].x + gridSize * (ships[i].amount  - 1) : ships[i].x;
-                let othershipHeight = !ships[i].isHorizontal ? ships[i].y + gridSize * (ships[i].amount  - 1) : ships[i].y;
-                if ((ships[i].x <= this.x && othershipLength >= this.x) || (ships[i].x <= shipLength && othershipLength >= this.x)) {
-                    if (ships[i].y <= this.y && othershipHeight >= this.y || ships[i].y <= shipHeight && othershipHeight >= this.y) {
-                        this.rotate();
-                        return;
-                    }
-                }
             }
         }
     }

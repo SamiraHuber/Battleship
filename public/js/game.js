@@ -1,7 +1,6 @@
 let myTurn = false;
 var fullShips = [];
 
-
 let gridSize = $("#opponent").width()/10;
 
 var canvas = createCanvas($("#myself").width(), $("#myself").height(), "myself");
@@ -115,8 +114,6 @@ function markFieldMiss(x, y) {
 }
 
 function showFullShips(val) {
-    document.getElementById("message").innerText = '"You sunk my battleship!"';
-
     fullShips = val['fullShips'];
 
     fullShips.forEach(newShip => {
