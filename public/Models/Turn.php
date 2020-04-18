@@ -4,7 +4,12 @@
     class Turn {
 
         /**
+         * Returns all turns which are made during a game
          * 
+         * @param DATABASE $pdo database connection
+         * @param INTEGER $gameID id of current game
+         * 
+         * @return ARRAY list of all turns with player, x, y, date and hit
          */
         public function getAllTurns($pdo, $gameID) {
             try {
@@ -17,6 +22,15 @@
             }
         }
 
+        /**
+         * returns all ships which are fully sunk
+         * 
+         * @param DATABASE $pdo database connection
+         * @param INTEGER $gameID id of current game
+         * @param INTEGER $playerID id of current player
+         * 
+         * @return ARRAY all sunk ships 
+         */
         public function getSankShips($pdo, $gameID, $playerID) {
             try {
                 $sql = "SELECT ship.shipID, COUNT(*) as count, shipTypes.length, MIN(ship.x) as x, MIN(ship.y) as y, MIN(ship.isHorizontal) as isHorizontal FROM turn JOIN ship ON turn.shipID = ship.id JOIN shipTypes ON shipTypes.id = ship.shipID WHERE turn.gameID = {$gameID} AND turn.playerID = {$playerID} GROUP BY ship.shipID, turn.playerID;";
@@ -37,6 +51,15 @@
             }
         }
 
+        /**
+         * returns the last hitten field
+         * 
+         * @param DATABASE $pdo database connection
+         * @param INTEGER $gameID id of current game
+         * @param INTEGER $playerID id of current player
+         * 
+         * @return TURN last inserted row in turn
+         */
         public function getHitFields($pdo, $gameID, $playerID) {
             try {
                 $sql = "SELECT * FROM turn WHERE gameID = {$gameID} AND playerID != {$playerID} ORDER BY date DESC LIMIT 1;";
@@ -49,6 +72,14 @@
             }
         }
 
+        /**
+         * returns the hit rate of opponent and player
+         * 
+         * @param DATABASE $pdo database connection
+         * @param INTEGER $gameID id of current game
+         * 
+         * @return ARRAY hitrate of both opponents
+         */
         public function getHitRate($pdo, $gameID) {
             try {
                 $sql = "SELECT turn.playerID, (COUNT(IF(ISNULL(ship.shipID), NULL, 1))/ COUNT(*) * 100) as hitrate FROM turn LEFT JOIN ship ON turn.shipID = ship.id WHERE turn.gameID = {$gameID} GROUP BY turn.playerID;";
@@ -61,7 +92,15 @@
             }
         }
 
-
+        /**
+         * adds a new move to the database
+         * 
+         * @param DATABASE $pdo database connection
+         * @param INTEGER $gameID id of current game
+         * @param INTEGER $playerID id of current player
+         * @param INTEGER $fieldX x-value of click
+         * @param INTEGER $fieldY y-value of click
+         */
         public function addMove($pdo, $gameID, $playerID, $fieldX, $fieldY) {
             $userRow = null;
             try {
@@ -108,6 +147,13 @@
         }
 
 
+        /**
+         * checks if one player sunk all ships
+         * 
+         * @param DATABASE $pdo database connection
+         * @param INTEGER $gameID id of current game
+         * @param INTEGER $playerID id of current player
+         */
         public function gameFinished($pdo, $gameID, $playerID) {
             try {
                 $sql = "SELECT ship.shipID, COUNT(*) as count,shipTypes.length, turn.playerID FROM turn JOIN ship ON turn.shipID = ship.id JOIN shipTypes ON shipTypes.id = ship.shipID WHERE turn.gameID = {$gameID} GROUP BY ship.shipID, turn.playerID;";

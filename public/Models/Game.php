@@ -48,6 +48,10 @@
 
         /**
          * set flag to 1 that player is ready
+         * 
+         * @param DATABASE $pdo database connection
+         * @param INTEGER $gameID id of current game
+         * @param INTEGER $playerID id of current player
          */
         public function setReady($pdo, $gameID, $playerID) {
             $pdo->beginTransaction();
@@ -74,7 +78,11 @@
         }
 
         /**
+         * checks if opponent has set his/her ships
          * 
+         * @param DATABASE $pdo database connection
+         * @param INTEGER $gameID id of current game
+         * @param INTEGER $playerID id of current player
          */
         public function isOpponentReady($pdo, $gameID, $playerID) {
             try {
@@ -96,6 +104,13 @@
             }
         }
 
+        /**
+         * checks if active player is current player
+         * 
+         * @param DATABASE $pdo database connection
+         * @param INTEGER $gameID id of current game
+         * @param INTEGER $playerID id of current player
+         */
         public function isMyTurn($pdo, $gameID, $playerID) {
             try {
                 $sql = "SELECT * FROM game WHERE id = {$gameID}";
@@ -109,6 +124,12 @@
             }
         }
 
+        /**
+         * sets active player to the id of the other player
+         * 
+         * @param DATABASE $pdo database connection
+         * @param INTEGER $gameID id of current game
+         */
         public function changeActivePlayer($pdo, $gameID) {
             $sql = "SELECT * FROM game WHERE id = {$gameID};";
             $userRow = $pdo->query($sql)->fetch();
