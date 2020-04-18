@@ -69,14 +69,13 @@ function getShipPositions() {
 }
 
 function saveShips() {
-    let _this = this;
-    
     if (this.submitted) {
         return;
     }
 
     this.document.getElementById("blocker").style.display = "block";
-
+    let _this = this;
+    
     $.ajax({
         type: 'GET',
         url: '/saveShips',
